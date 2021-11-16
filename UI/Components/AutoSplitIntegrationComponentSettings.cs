@@ -71,6 +71,7 @@ namespace LiveSplit.UI.Components
 
             SettingsHelper.CreateSetting(document, settingsElement, "Version", "1.8");
             SettingsHelper.CreateSetting(document, settingsElement, "AutoSplitPath", component.AutoSplitPath);
+            SettingsHelper.CreateSetting(document, settingsElement, "SettingsPath", component.SettingsPath);
             SettingsHelper.CreateSetting(document, settingsElement, "GameTimePausing", component.GameTimePausing);
 
             return settingsElement;
@@ -82,6 +83,7 @@ namespace LiveSplit.UI.Components
                 return;
 
             component.AutoSplitPath = textBoxAutoSplitPath.Text = SettingsHelper.ParseString(settings["AutoSplitPath"]);
+            component.SettingsPath = textBoxSettingsPath.Text = SettingsHelper.ParseString(settings["SettingsPath"]);
             component.GameTimePausing = checkBoxGameTimePausing.Checked = SettingsHelper.ParseBool(settings["GameTimePausing"]);
 
             if (component.AutoSplit != null)
@@ -112,6 +114,20 @@ namespace LiveSplit.UI.Components
             }
         }
 
+        private void buttonSettingsPathBrowse_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog()
+            {
+                Filter = "*pkl files (*.pkl)|*.pkl"
+            };
+
+            if (File.Exists(component.AutoSplitPath))
+            {
+                dialog.InitialDirectory = Path.GetDirectoryName(component.SettingsPath);
+                dialog.FileName = Path.GetFileName(component.SettingsPath);
+            }
+        }
+
         private void ButtonStartAutoSplit_Click(object sender, EventArgs e) => component.StartAutoSplit();
 
         private void ButtonKillAutoSplit_Click(object sender, EventArgs e) => component.KillAutoSplit();
@@ -119,5 +135,8 @@ namespace LiveSplit.UI.Components
         private void CheckBoxGameTimePausing_CheckedChanged(object sender, EventArgs e) => component.GameTimePausing = checkBoxGameTimePausing.Checked;
 
         private void TextBoxAutoSplitPath_TextChanged(object sender, EventArgs e) => component.AutoSplitPath = textBoxAutoSplitPath.Text;
+
+        private void TextBoxSettingsPath_TextChanged(object sender, EventArgs e) => component.SettingsPath = textBoxSettingsPath.Text;
+
     }
 }

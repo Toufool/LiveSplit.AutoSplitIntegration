@@ -34,6 +34,8 @@ namespace LiveSplit.UI.Components
 
         public string AutoSplitPath { get; set; }
 
+        public string SettingsPath { get; set; }
+
         public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion) { }
         public void DrawVertical(Graphics g, LiveSplitState state, float height, Region clipRegion) { }
         public float HorizontalWidth => 0;

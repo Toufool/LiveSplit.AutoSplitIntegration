@@ -65,21 +65,18 @@
     <Content Include="update\Components\update.LiveSplit.AutoSplitIntegration.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="LiveSplit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\Release\LiveSplit.exe</HintPath>
+    <Reference Include="LiveSplit">
+      <HintPath>..\..\..\Documents\LiveSplit\LiveSplit.exe</HintPath>
     </Reference>
-    <Reference Include="LiveSplit.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\Release\LiveSplit.Core.dll</HintPath>
+    <Reference Include="LiveSplit.Core">
+      <HintPath>..\..\..\Documents\LiveSplit\LiveSplit.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="UpdateManager, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\Release\UpdateManager.dll</HintPath>
+    <Reference Include="UpdateManager">
+      <HintPath>..\..\..\Documents\LiveSplit\UpdateManager.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
