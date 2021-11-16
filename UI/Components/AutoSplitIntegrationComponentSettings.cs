@@ -114,17 +114,22 @@ namespace LiveSplit.UI.Components
             }
         }
 
-        private void buttonSettingsPathBrowse_Click(object sender, EventArgs e)
+        private void ButtonSettingsPathBrowse_Click(object sender, EventArgs e)
         {
             var dialog = new OpenFileDialog()
             {
                 Filter = "*pkl files (*.pkl)|*.pkl"
             };
 
-            if (File.Exists(component.AutoSplitPath))
+            if (File.Exists(component.SettingsPath))
             {
                 dialog.InitialDirectory = Path.GetDirectoryName(component.SettingsPath);
                 dialog.FileName = Path.GetFileName(component.SettingsPath);
+            }
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                component.SettingsPath = textBoxSettingsPath.Text = dialog.FileName;
             }
         }
 

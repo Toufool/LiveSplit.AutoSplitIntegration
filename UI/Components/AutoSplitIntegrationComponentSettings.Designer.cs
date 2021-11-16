@@ -215,7 +215,7 @@ namespace LiveSplit.UI.Components
             this.buttonSettingsPathBrowse.TabIndex = 10;
             this.buttonSettingsPathBrowse.Text = "Browse...";
             this.buttonSettingsPathBrowse.UseVisualStyleBackColor = true;
-            this.buttonSettingsPathBrowse.Click += new System.EventHandler(this.buttonSettingsPathBrowse_Click);
+            this.buttonSettingsPathBrowse.Click += new System.EventHandler(this.ButtonSettingsPathBrowse_Click);
             // 
             // AutoSplitIntegrationComponentSettings
             // 
