@@ -34,6 +34,9 @@ namespace LiveSplit.UI.Components
             this.buttonAutoSplitPathBrowse = new System.Windows.Forms.Button();
             this.textBoxAutoSplitPath = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonSettingsPathBrowse = new System.Windows.Forms.Button();
+            this.textBoxSettingsPath = new System.Windows.Forms.TextBox();
+            this.labelSettingsPath = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonStartAutoSplit = new System.Windows.Forms.Button();
             this.buttonKillAutoSplit = new System.Windows.Forms.Button();
@@ -41,9 +44,6 @@ namespace LiveSplit.UI.Components
             this.labelAutoSplit = new System.Windows.Forms.Label();
             this.labelPausing = new System.Windows.Forms.Label();
             this.checkBoxGameTimePausing = new System.Windows.Forms.CheckBox();
-            this.labelSettingsPath = new System.Windows.Forms.Label();
-            this.textBoxSettingsPath = new System.Windows.Forms.TextBox();
-            this.buttonSettingsPathBrowse = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -105,6 +105,36 @@ namespace LiveSplit.UI.Components
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 111);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // buttonSettingsPathBrowse
+            // 
+            this.buttonSettingsPathBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSettingsPathBrowse.AutoSize = true;
+            this.buttonSettingsPathBrowse.Location = new System.Drawing.Point(386, 31);
+            this.buttonSettingsPathBrowse.Name = "buttonSettingsPathBrowse";
+            this.buttonSettingsPathBrowse.Size = new System.Drawing.Size(73, 22);
+            this.buttonSettingsPathBrowse.TabIndex = 10;
+            this.buttonSettingsPathBrowse.Text = "Browse...";
+            this.buttonSettingsPathBrowse.UseVisualStyleBackColor = true;
+            this.buttonSettingsPathBrowse.Click += new System.EventHandler(this.ButtonSettingsPathBrowse_Click);
+            // 
+            // textBoxSettingsPath
+            // 
+            this.textBoxSettingsPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxSettingsPath.Location = new System.Drawing.Point(86, 32);
+            this.textBoxSettingsPath.Name = "textBoxSettingsPath";
+            this.textBoxSettingsPath.Size = new System.Drawing.Size(294, 20);
+            this.textBoxSettingsPath.TabIndex = 9;
+            // 
+            // labelSettingsPath
+            // 
+            this.labelSettingsPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSettingsPath.AutoSize = true;
+            this.labelSettingsPath.Location = new System.Drawing.Point(3, 35);
+            this.labelSettingsPath.Name = "labelSettingsPath";
+            this.labelSettingsPath.Size = new System.Drawing.Size(77, 13);
+            this.labelSettingsPath.TabIndex = 8;
+            this.labelSettingsPath.Text = "Settings Path:";
             // 
             // flowLayoutPanel1
             // 
@@ -186,36 +216,6 @@ namespace LiveSplit.UI.Components
             this.checkBoxGameTimePausing.Text = "Pause Game Time only (this will disallow manual unpausing)";
             this.checkBoxGameTimePausing.UseVisualStyleBackColor = true;
             this.checkBoxGameTimePausing.CheckedChanged += new System.EventHandler(this.CheckBoxGameTimePausing_CheckedChanged);
-            // 
-            // labelSettingsPath
-            // 
-            this.labelSettingsPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelSettingsPath.AutoSize = true;
-            this.labelSettingsPath.Location = new System.Drawing.Point(3, 35);
-            this.labelSettingsPath.Name = "labelSettingsPath";
-            this.labelSettingsPath.Size = new System.Drawing.Size(77, 13);
-            this.labelSettingsPath.TabIndex = 8;
-            this.labelSettingsPath.Text = "Settings Path";
-            // 
-            // textBoxSettingsPath
-            // 
-            this.textBoxSettingsPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSettingsPath.Location = new System.Drawing.Point(86, 32);
-            this.textBoxSettingsPath.Name = "textBoxSettingsPath";
-            this.textBoxSettingsPath.Size = new System.Drawing.Size(294, 20);
-            this.textBoxSettingsPath.TabIndex = 9;
-            // 
-            // buttonSettingsPathBrowse
-            // 
-            this.buttonSettingsPathBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSettingsPathBrowse.AutoSize = true;
-            this.buttonSettingsPathBrowse.Location = new System.Drawing.Point(386, 31);
-            this.buttonSettingsPathBrowse.Name = "buttonSettingsPathBrowse";
-            this.buttonSettingsPathBrowse.Size = new System.Drawing.Size(73, 22);
-            this.buttonSettingsPathBrowse.TabIndex = 10;
-            this.buttonSettingsPathBrowse.Text = "Browse...";
-            this.buttonSettingsPathBrowse.UseVisualStyleBackColor = true;
-            this.buttonSettingsPathBrowse.Click += new System.EventHandler(this.ButtonSettingsPathBrowse_Click);
             // 
             // AutoSplitIntegrationComponentSettings
             // 
