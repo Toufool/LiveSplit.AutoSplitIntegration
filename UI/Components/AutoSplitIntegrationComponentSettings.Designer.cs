@@ -149,7 +149,7 @@ namespace LiveSplit.UI.Components
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(379, 28);
-            this.flowLayoutPanel1.TabIndex = 3;
+            this.flowLayoutPanel1.TabIndex = 10;
             // 
             // buttonStartAutoSplit
             // 
@@ -202,7 +202,7 @@ namespace LiveSplit.UI.Components
             this.labelPausing.Location = new System.Drawing.Point(3, 91);
             this.labelPausing.Name = "labelPausing";
             this.labelPausing.Size = new System.Drawing.Size(77, 13);
-            this.labelPausing.TabIndex = 10;
+            this.labelPausing.TabIndex = 11;
             this.labelPausing.Text = "Pausing:";
             // 
             // checkBoxGameTimePausing
@@ -213,7 +213,7 @@ namespace LiveSplit.UI.Components
             this.checkBoxGameTimePausing.Location = new System.Drawing.Point(86, 89);
             this.checkBoxGameTimePausing.Name = "checkBoxGameTimePausing";
             this.checkBoxGameTimePausing.Size = new System.Drawing.Size(373, 17);
-            this.checkBoxGameTimePausing.TabIndex = 11;
+            this.checkBoxGameTimePausing.TabIndex = 12;
             this.checkBoxGameTimePausing.Text = "Pause Game Time only (this will disallow manual unpausing)";
             this.checkBoxGameTimePausing.UseVisualStyleBackColor = true;
             this.checkBoxGameTimePausing.CheckedChanged += new System.EventHandler(this.CheckBoxGameTimePausing_CheckedChanged);
