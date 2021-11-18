@@ -130,6 +130,7 @@ namespace LiveSplit.UI.Components
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 component.SettingsPath = textBoxSettingsPath.Text = dialog.FileName;
+                component.LoadAutoSplitSettings();
             }
         }
 

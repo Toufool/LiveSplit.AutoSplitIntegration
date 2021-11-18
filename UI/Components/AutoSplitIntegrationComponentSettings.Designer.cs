@@ -65,7 +65,7 @@ namespace LiveSplit.UI.Components
             this.buttonAutoSplitPathBrowse.Location = new System.Drawing.Point(386, 3);
             this.buttonAutoSplitPathBrowse.Name = "buttonAutoSplitPathBrowse";
             this.buttonAutoSplitPathBrowse.Size = new System.Drawing.Size(73, 22);
-            this.buttonAutoSplitPathBrowse.TabIndex = 1;
+            this.buttonAutoSplitPathBrowse.TabIndex = 2;
             this.buttonAutoSplitPathBrowse.Text = "Browse...";
             this.buttonAutoSplitPathBrowse.UseVisualStyleBackColor = true;
             this.buttonAutoSplitPathBrowse.Click += new System.EventHandler(this.ButtonAutoSplitPathBrowse_Click);
@@ -76,7 +76,7 @@ namespace LiveSplit.UI.Components
             this.textBoxAutoSplitPath.Location = new System.Drawing.Point(86, 4);
             this.textBoxAutoSplitPath.Name = "textBoxAutoSplitPath";
             this.textBoxAutoSplitPath.Size = new System.Drawing.Size(294, 20);
-            this.textBoxAutoSplitPath.TabIndex = 0;
+            this.textBoxAutoSplitPath.TabIndex = 1;
             this.textBoxAutoSplitPath.TextChanged += new System.EventHandler(this.TextBoxAutoSplitPath_TextChanged);
             // 
             // tableLayoutPanel1
@@ -113,7 +113,7 @@ namespace LiveSplit.UI.Components
             this.buttonSettingsPathBrowse.Location = new System.Drawing.Point(386, 31);
             this.buttonSettingsPathBrowse.Name = "buttonSettingsPathBrowse";
             this.buttonSettingsPathBrowse.Size = new System.Drawing.Size(73, 22);
-            this.buttonSettingsPathBrowse.TabIndex = 10;
+            this.buttonSettingsPathBrowse.TabIndex = 5;
             this.buttonSettingsPathBrowse.Text = "Browse...";
             this.buttonSettingsPathBrowse.UseVisualStyleBackColor = true;
             this.buttonSettingsPathBrowse.Click += new System.EventHandler(this.ButtonSettingsPathBrowse_Click);
@@ -124,7 +124,8 @@ namespace LiveSplit.UI.Components
             this.textBoxSettingsPath.Location = new System.Drawing.Point(86, 32);
             this.textBoxSettingsPath.Name = "textBoxSettingsPath";
             this.textBoxSettingsPath.Size = new System.Drawing.Size(294, 20);
-            this.textBoxSettingsPath.TabIndex = 9;
+            this.textBoxSettingsPath.TabIndex = 4;
+            this.textBoxSettingsPath.TextChanged += new System.EventHandler(this.TextBoxSettingsPath_TextChanged);
             // 
             // labelSettingsPath
             // 
@@ -133,7 +134,7 @@ namespace LiveSplit.UI.Components
             this.labelSettingsPath.Location = new System.Drawing.Point(3, 35);
             this.labelSettingsPath.Name = "labelSettingsPath";
             this.labelSettingsPath.Size = new System.Drawing.Size(77, 13);
-            this.labelSettingsPath.TabIndex = 8;
+            this.labelSettingsPath.TabIndex = 3;
             this.labelSettingsPath.Text = "Settings Path:";
             // 
             // flowLayoutPanel1
@@ -157,7 +158,7 @@ namespace LiveSplit.UI.Components
             this.buttonStartAutoSplit.Location = new System.Drawing.Point(3, 3);
             this.buttonStartAutoSplit.Name = "buttonStartAutoSplit";
             this.buttonStartAutoSplit.Size = new System.Drawing.Size(100, 23);
-            this.buttonStartAutoSplit.TabIndex = 2;
+            this.buttonStartAutoSplit.TabIndex = 7;
             this.buttonStartAutoSplit.Text = "Start AutoSplit";
             this.buttonStartAutoSplit.UseVisualStyleBackColor = true;
             this.buttonStartAutoSplit.Click += new System.EventHandler(this.ButtonStartAutoSplit_Click);
@@ -168,7 +169,7 @@ namespace LiveSplit.UI.Components
             this.buttonKillAutoSplit.Location = new System.Drawing.Point(109, 3);
             this.buttonKillAutoSplit.Name = "buttonKillAutoSplit";
             this.buttonKillAutoSplit.Size = new System.Drawing.Size(100, 23);
-            this.buttonKillAutoSplit.TabIndex = 3;
+            this.buttonKillAutoSplit.TabIndex = 8;
             this.buttonKillAutoSplit.Text = "Kill AutoSplit";
             this.buttonKillAutoSplit.UseVisualStyleBackColor = true;
             this.buttonKillAutoSplit.Click += new System.EventHandler(this.ButtonKillAutoSplit_Click);
@@ -180,7 +181,7 @@ namespace LiveSplit.UI.Components
             this.labelAutoSplitVersion.Margin = new System.Windows.Forms.Padding(3);
             this.labelAutoSplitVersion.Name = "labelAutoSplitVersion";
             this.labelAutoSplitVersion.Size = new System.Drawing.Size(161, 17);
-            this.labelAutoSplitVersion.TabIndex = 5;
+            this.labelAutoSplitVersion.TabIndex = 9;
             this.labelAutoSplitVersion.Text = "AutoSplit Version: N/A";
             this.labelAutoSplitVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -191,7 +192,7 @@ namespace LiveSplit.UI.Components
             this.labelAutoSplit.Location = new System.Drawing.Point(3, 63);
             this.labelAutoSplit.Name = "labelAutoSplit";
             this.labelAutoSplit.Size = new System.Drawing.Size(77, 13);
-            this.labelAutoSplit.TabIndex = 4;
+            this.labelAutoSplit.TabIndex = 6;
             this.labelAutoSplit.Text = "AutoSplit:";
             // 
             // labelPausing
@@ -201,7 +202,7 @@ namespace LiveSplit.UI.Components
             this.labelPausing.Location = new System.Drawing.Point(3, 91);
             this.labelPausing.Name = "labelPausing";
             this.labelPausing.Size = new System.Drawing.Size(77, 13);
-            this.labelPausing.TabIndex = 5;
+            this.labelPausing.TabIndex = 10;
             this.labelPausing.Text = "Pausing:";
             // 
             // checkBoxGameTimePausing
@@ -212,7 +213,7 @@ namespace LiveSplit.UI.Components
             this.checkBoxGameTimePausing.Location = new System.Drawing.Point(86, 89);
             this.checkBoxGameTimePausing.Name = "checkBoxGameTimePausing";
             this.checkBoxGameTimePausing.Size = new System.Drawing.Size(373, 17);
-            this.checkBoxGameTimePausing.TabIndex = 7;
+            this.checkBoxGameTimePausing.TabIndex = 11;
             this.checkBoxGameTimePausing.Text = "Pause Game Time only (this will disallow manual unpausing)";
             this.checkBoxGameTimePausing.UseVisualStyleBackColor = true;
             this.checkBoxGameTimePausing.CheckedChanged += new System.EventHandler(this.CheckBoxGameTimePausing_CheckedChanged);

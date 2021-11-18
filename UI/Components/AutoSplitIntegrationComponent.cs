@@ -88,6 +88,8 @@ namespace LiveSplit.UI.Components
                 AutoSplit?.Close();
                 AutoSplit = new AutoSplitProcess(this);
             }
+
+            LoadAutoSplitSettings();
         }
 
         public void KillAutoSplit()
@@ -100,6 +102,14 @@ namespace LiveSplit.UI.Components
                 AutoSplit.MainProcess.Kill();
             }
             catch { }
+        }
+
+        public void LoadAutoSplitSettings()
+        {
+            if (!string.IsNullOrEmpty(SettingsPath) && File.Exists(SettingsPath))
+            {
+                AutoSplit.Send("settings|" + SettingsPath);
+            }
         }
 
         public void Dispose() => AutoSplit?.Close();
@@ -145,5 +155,6 @@ namespace LiveSplit.UI.Components
         private void State_OnSkipSplit(object sender, EventArgs e) => AutoSplit.Send("skip");
 
         private void State_OnUndoSplit(object sender, EventArgs e) => AutoSplit.Send("undo");
+
     }
 }
