@@ -118,7 +118,7 @@ namespace LiveSplit.UI.Components
         {
             var dialog = new OpenFileDialog()
             {
-                Filter = "*pkl files (*.pkl)|*.pkl"
+                Filter = "AutoSplit Settings(*.pkl; *.toml)|*.pkl;*.toml|All files (*.*)|*.*"
             };
 
             if (File.Exists(component.SettingsPath))
