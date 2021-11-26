@@ -1,13 +1,13 @@
 ﻿# AutoSplit Integration
 
-Directly connects [AutoSplit](https://github.com/KaDiWa4/Auto-Split) with [LiveSplit](https://github.com/LiveSplit/LiveSplit).
+Directly connects [AutoSplit](https://github.com/Toufool/Auto-Split) with [LiveSplit](https://github.com/LiveSplit/LiveSplit).
 
 ## Installation
 
 - Close AutoSplit if it’s currently open
 - Download [the `.dll` file](/update/Components/LiveSplit.AutoSplitIntegration.dll?raw=true) and move it into LiveSplit’s `Components` folder
 - Edit your layout, click the plus and choose Control → AutoSplit Integration
-- Click Layout Settings → AutoSplit Integration → Browse... and select your `AutoSplit.exe`. You can find compatible AutoSplit versions [here](https://github.com/KaDiWa4/Auto-Split)
+- Click Layout Settings → AutoSplit Integration → Browse... and select your `AutoSplit.exe`. You can find compatible AutoSplit versions [here](https://github.com/Toufool/Auto-Split)
 
 ## Opening/Closing AutoSplit
 
