@@ -5,9 +5,12 @@ Directly connects [AutoSplit](https://github.com/Toufool/Auto-Split) with [LiveS
 ## Installation
 
 - Close AutoSplit if it’s currently open
-- Download [the `.dll` file](/update/Components/LiveSplit.AutoSplitIntegration.dll?raw=true) and move it into LiveSplit’s `Components` folder
-- Edit your layout, click the plus and choose Control → AutoSplit Integration
-- Click Layout Settings → AutoSplit Integration → Browse... and select your `AutoSplit.exe`. You can find compatible AutoSplit versions [here](https://github.com/Toufool/Auto-Split)
+- Download [the `.dll` file](/update/Components/LiveSplit.AutoSplitIntegration.dll?raw=true) and place it into your `[...]\LiveSplit\Components` folder.
+- Open LiveSplit -> Right Click -> Edit Layout -> Plus Button -> Control -> AutoSplit Integration.
+- Click Layout Settings -> AutoSplit Integration
+- Click the Browse buttons to locate your AutoSplit Path (path to `AutoSplit.exe`) and Profile Path (path to your AutoSplit `.toml` profile file) respectively.
+  - If you have not yet set saved a profile, you can do so using AutoSplit, and then go back and set your Settings Path.
+- Once set, click OK, and then OK again to close the Layout Editor. Right click LiveSplit -> Save Layout to save your layout. AutoSplit and your selected profile will now open automatically when opening that LiveSplit Layout `.lsl` file.
 
 ## Opening/Closing AutoSplit
 
