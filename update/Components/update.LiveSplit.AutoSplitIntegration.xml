@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <updates>
+	<update version="1.8.3">
+		<files>
+			<file path="Components/LiveSplit.AutoSplitIntegration.dll" status="changed" />
+		</files>
+		<changelog>
+			<change>Fixed an unhandled null reference exception when trying to set a settings path without starting AutoSplit program first.</change>
+		</changelog>
+	</update>
 	<update version="1.8.2">
 		<files>
 			<file path="Components/LiveSplit.AutoSplitIntegration.dll" status="changed" />
