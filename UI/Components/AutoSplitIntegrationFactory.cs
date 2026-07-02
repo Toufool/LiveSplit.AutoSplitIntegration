@@ -14,8 +14,7 @@ namespace LiveSplit.UI.Components
 
         public ComponentCategory Category => ComponentCategory.Control;
 
-        // Keep in sync with Version in LiveSplit.AutoSplitIntegration.csproj -->
-        public Version Version => Version.Parse("1.8.3");
+        public Version Version => GetType().Assembly.GetName().Version;
 
         public string UpdateName => ComponentName;
 

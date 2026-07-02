@@ -39,15 +39,16 @@
     <Deterministic>true</Deterministic>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 
-    <!-- Assembly metadata (previously in Properties/AssemblyInfo.cs) -->
+    <!-- Assembly metadata -->
     <Product>LiveSplit.AutoSplitIntegration</Product>
     <Description>Directly connects AutoSplit with LiveSplit.</Description>
     <Company>Toufool</Company>
     <Copyright>Copyright © 2026</Copyright>
-    <!-- Keep in sync with Version in UI/Components/AutoSplitIntegrationFactory.cs (drives the auto-updater) -->
+    <!--
+      When changing the version, remember to also add an entry to
+      update/Components/update.LiveSplit.AutoSplitIntegration.xml
+    -->
     <Version>1.8.3</Version>
-    <AssemblyVersion>1.8.3.0</AssemblyVersion>
-    <FileVersion>1.8.3.0</FileVersion>
   </PropertyGroup>
 
   <!--

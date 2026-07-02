@@ -1,4 +1,4 @@
-﻿# AutoSplit Integration
+﻿# AutoSplit Integration [![Build](/../../actions/workflows/build.yml/badge.svg)](/../../actions/workflows/build.yml) [![SemVer](https://badgen.net/badge/_/SemVer%20compliant/grey?label)](https://semver.org/)
 
 Directly connects [AutoSplit](https://github.com/Toufool/Auto-Split) with [LiveSplit](https://github.com/LiveSplit/LiveSplit).
 
@@ -41,21 +41,27 @@ The plugin uses LiveSplit's built-in component auto-updater: each LiveSplit inst
 polls the factory's `XMLURL`, and offers an update when a listed `<update version="…">`
 is newer than the installed component's `Version`.
 
+The version is defined **once**, in
+[`LiveSplit.AutoSplitIntegration.csproj`](LiveSplit.AutoSplitIntegration.csproj)
+(`<Version>`). `AssemblyVersion`/`FileVersion` derive from it, and the factory's
+`Version` reads it back at runtime — no other source file needs editing.
+
 To publish a release:
 
-1. Bump the version in **both**
-   [`UI/Components/AutoSplitIntegrationFactory.cs`](UI/Components/AutoSplitIntegrationFactory.cs)
-   (`Version`) and the `Version`/`AssemblyVersion`/`FileVersion` properties in
+1. Bump `<Version>` in
    [`LiveSplit.AutoSplitIntegration.csproj`](LiveSplit.AutoSplitIntegration.csproj).
-2. Prepend a new `<update version="…">` entry, with a changelog, to
+2. Prepend a matching `<update version="…">` entry, with a changelog, to
    [`update/Components/update.LiveSplit.AutoSplitIntegration.xml`](update/Components/update.LiveSplit.AutoSplitIntegration.xml).
-3. Build `Release` — the DLL is produced under `update/Components/` (Debug) / the
-   configured Release output. Commit the rebuilt
-   `update/Components/LiveSplit.AutoSplitIntegration.dll`.
-4. Commit and push to the branch the updater URLs point at
+   Its version must equal the new `<Version>`.
+3. `dotnet build --configuration Release`, then copy the produced
+   `LiveSplit.AutoSplitIntegration.dll` into
+   [`update/Components/`](update/Components/) and commit it — this committed DLL is what
+   installs download. (Release output goes to `../../bin/Release/Components/`; only a
+   Debug build writes straight to `update/Components/`.)
+4. Push to the branch the updater URLs point at
    (`Toufool/LiveSplit.AutoSplitIntegration`, `main`), then create a GitHub release.
 
 ## Resources
 
-- Still need help? [Open an issue](../../issues)
+- Still need help? [Open an issue](../../../AutoSplit/issues)
 - Join the [AutoSplit Discord](https://discord.gg/Qcbxv9y)
