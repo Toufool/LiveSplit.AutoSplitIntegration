@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using LiveSplit.Model;
 using LiveSplit.UI.Components;
 
@@ -14,13 +14,14 @@ namespace LiveSplit.UI.Components
 
         public ComponentCategory Category => ComponentCategory.Control;
 
-        public Version Version => Version.Parse("1.8.2");
+        // Keep in sync with Version in LiveSplit.AutoSplitIntegration.csproj -->
+        public Version Version => Version.Parse("1.8.3");
 
         public string UpdateName => ComponentName;
 
-        public string UpdateURL => "https://raw.githubusercontent.com/KaDiWa4/LiveSplit.AutoSplitIntegration/master/update/Components/";
+        public string UpdateURL => "https://raw.githubusercontent.com/Toufool/LiveSplit.AutoSplitIntegration/main/update/Components/";
 
-        public string XMLURL => "https://raw.githubusercontent.com/KaDiWa4/LiveSplit.AutoSplitIntegration/master/update/Components/update.LiveSplit.AutoSplitIntegration.xml";
+        public string XMLURL => "https://raw.githubusercontent.com/Toufool/LiveSplit.AutoSplitIntegration/main/update/Components/update.LiveSplit.AutoSplitIntegration.xml";
 
         public IComponent Create(LiveSplitState state) => new AutoSplitIntegrationComponent(state);
     }

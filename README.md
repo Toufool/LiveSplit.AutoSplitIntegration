@@ -20,9 +20,42 @@ Directly connects [AutoSplit](https://github.com/Toufool/Auto-Split) with [LiveS
 
 ## Compiling
 
-- Clone/download LiveSplit and this repository
-- Open it in [Visual Studio 2019](https://visualstudio.microsoft.com/vs)
+Requirements:
+
+- The [.NET SDK 10.x](https://dotnet.microsoft.com/download)
+- The [.NET Framework 4.8.1 Developer Pack](https://dotnet.microsoft.com/download/dotnet-framework/net481)
+- Optionally [Visual Studio 2022](https://visualstudio.microsoft.com/vs)
+
+Then either:
+
+- Run `dotnet build --configuration Release`, or
+- Open `LiveSplit.AutoSplitIntegration.csproj` in Visual Studio 2022 and build.
+
+The LiveSplit assemblies needed to compile (`LiveSplit.exe`, `LiveSplit.Core.dll`,
+`UpdateManager.dll`) are vendored under [`lib/`](lib/) — you do **not** need a separate
+LiveSplit checkout. See [`lib/README.md`](lib/README.md) to refresh them.
+
+## Releasing a new version
+
+The plugin uses LiveSplit's built-in component auto-updater: each LiveSplit install
+polls the factory's `XMLURL`, and offers an update when a listed `<update version="…">`
+is newer than the installed component's `Version`.
+
+To publish a release:
+
+1. Bump the version in **both**
+   [`UI/Components/AutoSplitIntegrationFactory.cs`](UI/Components/AutoSplitIntegrationFactory.cs)
+   (`Version`) and the `Version`/`AssemblyVersion`/`FileVersion` properties in
+   [`LiveSplit.AutoSplitIntegration.csproj`](LiveSplit.AutoSplitIntegration.csproj).
+2. Prepend a new `<update version="…">` entry, with a changelog, to
+   [`update/Components/update.LiveSplit.AutoSplitIntegration.xml`](update/Components/update.LiveSplit.AutoSplitIntegration.xml).
+3. Build `Release` — the DLL is produced under `update/Components/` (Debug) / the
+   configured Release output. Commit the rebuilt
+   `update/Components/LiveSplit.AutoSplitIntegration.dll`.
+4. Commit and push to the branch the updater URLs point at
+   (`Toufool/LiveSplit.AutoSplitIntegration`, `main`), then create a GitHub release.
 
 ## Resources
+
 - Still need help? [Open an issue](../../issues)
 - Join the [AutoSplit Discord](https://discord.gg/Qcbxv9y)

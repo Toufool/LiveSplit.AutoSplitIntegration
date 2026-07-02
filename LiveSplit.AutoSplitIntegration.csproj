@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
   <!--
   The source skeleton for this configuration can be found at
   https://github.com/BesLogic/shared-configs/blob/main/Directory.Build.props
@@ -30,107 +29,55 @@
     <!-- Will be default in .NET 10 -->
     <NuGetAuditMode>all</NuGetAuditMode>
   </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
-    Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8DEB033B-6D0F-4301-9CB4-ABDC3DEFD397}</ProjectGuid>
+    <TargetFramework>net481</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
     <OutputType>Library</OutputType>
     <RootNamespace>LiveSplit</RootNamespace>
     <AssemblyName>LiveSplit.AutoSplitIntegration</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+    <!-- Assembly metadata (previously in Properties/AssemblyInfo.cs) -->
+    <Product>LiveSplit.AutoSplitIntegration</Product>
+    <Description>Directly connects AutoSplit with LiveSplit.</Description>
+    <Company>Toufool</Company>
+    <Copyright>Copyright © 2026</Copyright>
+    <!-- Keep in sync with Version in UI/Components/AutoSplitIntegrationFactory.cs (drives the auto-updater) -->
+    <Version>1.8.3</Version>
+    <AssemblyVersion>1.8.3.0</AssemblyVersion>
+    <FileVersion>1.8.3.0</FileVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+
+  <!--
+    Explicit per-config OutputPath. AppendTargetFrameworkToOutputPath=false stops the
+    TFM being appended, but does not itself set these paths. Debug output feeds the
+    committed auto-update artifact under update/Components/.
+  -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <OutputPath>update\Components\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <OutputPath>..\..\bin\Release\Components\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
+
   <ItemGroup>
-    <Compile Include="UI\Components\AutoSplitProcess.cs" />
-    <Compile Include="UI\Components\AutoSplitIntegrationComponent.cs" />
-    <Compile Include="UI\Components\AutoSplitIntegrationComponentSettings.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Components\AutoSplitIntegrationComponentSettings.Designer.cs">
-      <DependentUpon>AutoSplitIntegrationComponentSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Components\AutoSplitIntegrationFactory.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include=".gitignore" />
-    <Content Include="update\Components\update.LiveSplit.AutoSplitIntegration.xml" />
-  </ItemGroup>
-  <ItemGroup>
+    <!-- LiveSplit host assemblies, vendored under lib/ (see lib/README.md). -->
+    <!-- Private=false: provided by the host at runtime, not shipped with the plugin. -->
     <Reference Include="LiveSplit">
-      <HintPath>..\..\..\Documents\LiveSplit\LiveSplit.exe</HintPath>
+      <HintPath>lib\LiveSplit.exe</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="LiveSplit.Core">
-      <HintPath>..\..\..\Documents\LiveSplit\LiveSplit.Core.dll</HintPath>
+      <HintPath>lib\LiveSplit.Core.dll</HintPath>
+      <Private>false</Private>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
     <Reference Include="UpdateManager">
-      <HintPath>..\..\..\Documents\LiveSplit\UpdateManager.dll</HintPath>
+      <HintPath>lib\UpdateManager.dll</HintPath>
+      <Private>false</Private>
     </Reference>
+    <!-- GAC framework assemblies are not implicit for .NET Framework SDK-style projects. -->
+    <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="UI\Components\AutoSplitIntegrationComponentSettings.resx">
-      <DependentUpon>AutoSplitIntegrationComponentSettings.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="README.md" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
