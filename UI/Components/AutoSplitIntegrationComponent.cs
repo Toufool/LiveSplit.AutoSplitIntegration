@@ -108,7 +108,7 @@ namespace LiveSplit.UI.Components
         {
             if (!string.IsNullOrEmpty(SettingsPath) && File.Exists(SettingsPath))
             {
-                AutoSplit.Send("settings|" + SettingsPath);
+                AutoSplit?.Send("settings|" + SettingsPath);
             }
         }
 
