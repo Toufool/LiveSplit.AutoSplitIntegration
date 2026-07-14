@@ -18,9 +18,9 @@ namespace LiveSplit.UI.Components
 
         public string UpdateName => ComponentName;
 
-        public string UpdateURL => "https://raw.githubusercontent.com/KaDiWa4/LiveSplit.AutoSplitIntegration/master/update/Components/";
+        public string UpdateURL => "https://raw.githubusercontent.com/Toufool/LiveSplit.AutoSplitIntegration/main/update/Components/";
 
-        public string XMLURL => "https://raw.githubusercontent.com/KaDiWa4/LiveSplit.AutoSplitIntegration/master/update/Components/update.LiveSplit.AutoSplitIntegration.xml";
+        public string XMLURL => "https://raw.githubusercontent.com/Toufool/LiveSplit.AutoSplitIntegration/main/update/Components/update.LiveSplit.AutoSplitIntegration.xml";
 
         public IComponent Create(LiveSplitState state) => new AutoSplitIntegrationComponent(state);
     }

@@ -24,5 +24,6 @@ Directly connects [AutoSplit](https://github.com/Toufool/Auto-Split) with [LiveS
 - Open it in [Visual Studio 2019](https://visualstudio.microsoft.com/vs)
 
 ## Resources
-- Still need help? [Open an issue](../../issues)
+
+- Still need help? [Open an issue](../../../AutoSplit/issues)
 - Join the [AutoSplit Discord](https://discord.gg/Qcbxv9y)
