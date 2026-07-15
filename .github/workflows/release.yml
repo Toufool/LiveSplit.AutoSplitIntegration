@@ -1,9 +1,9 @@
 name: Release
 
-# Manifest validation runs on every PR/push (so a manifest that would break the updater is
-# caught before merge). Actually publishing only happens on a push to main that changes the
-# manifest, or a manual workflow_dispatch. The tag is created as part of publishing, so a
-# failed run leaves nothing to clean up (just re-run via "Run workflow").
+# The `validate` job runs on every PR/push/dispatch (so a manifest that would break the updater
+# is caught before merge). The `release` job depends on it and only publishes on a push to main
+# that changes the manifest, or a manual workflow_dispatch. The tag is created as part of
+# publishing, so a failed run leaves nothing to clean up (just re-run via "Run workflow").
 on:
   push:
     branches:
@@ -23,7 +23,7 @@ on:
         default: ""
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   # Cancel previous runs for the same PR
@@ -32,10 +32,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  release:
-    # Pinned windows runner for the .NET Framework 4.8.1 targeting pack (see build.yml).
-    runs-on: windows-2022
-
+  validate:
+    # Only bash + pwsh needed, so the cheaper Linux runner (with real coreutils) is fine.
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.ver.outputs.version }}
     steps:
       - uses: actions/checkout@v7
 
@@ -55,14 +56,29 @@ jobs:
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "Target release version: ${version:-<none>}"
 
+      # Fails on any manifest shape that would break the updater's parse, and (with a target
+      # version) that its release entry is complete. Also fails a manifest with no releasable
+      # entry, so an empty version can never reach the release job.
       - name: Validate manifest
         shell: pwsh
         run: ./scripts/validate-manifest.ps1 -ReleaseVersion "${{ steps.ver.outputs.version }}"
 
-      # On PRs: validate only. So everything below is skipped.
-      # On a push, skip if the release already exists. Unrelated manifest edits,
-      # e.g. adding to the 0.0.0 block, must not republish).
-      # On workflow_dispatch: skip this check and always (re)publish, so a failed release retries.
+  release:
+    needs: validate
+    # PRs validate only; publishing happens on push-to-main and manual dispatch.
+    if: github.event_name != 'pull_request'
+    # Pinned windows runner for the .NET Framework 4.8.1 targeting pack (see ci.yml).
+    runs-on: windows-2022
+    permissions:
+      contents: write
+    env:
+      VERSION: ${{ needs.validate.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+
+      # On a push, skip if the release already exists (unrelated manifest edits, e.g. adding to
+      # the 0.0.0 block, must not republish). workflow_dispatch skips this check and always
+      # (re)publishes, so a failed release can be retried.
       - name: Check existing release
         id: exists
         if: github.event_name == 'push'
@@ -70,32 +86,32 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if gh release view "v${{ steps.ver.outputs.version }}" >/dev/null 2>&1; then
+          if gh release view "v$VERSION" >/dev/null 2>&1; then
             echo "already=true" >> "$GITHUB_OUTPUT"
-            echo "Release v${{ steps.ver.outputs.version }} already exists; nothing to publish."
+            echo "Release v$VERSION already exists; nothing to publish."
           else
             echo "already=false" >> "$GITHUB_OUTPUT"
           fi
 
       - uses: actions/setup-dotnet@v5
-        if: github.event_name != 'pull_request' && steps.exists.outputs.already != 'true'
+        if: steps.exists.outputs.already != 'true'
         with:
           dotnet-version: "10.0.x"
           cache: true
 
       # The csproj sets RestoreLockedMode=true. So reproducible and safe.
       - run: dotnet restore
-        if: github.event_name != 'pull_request' && steps.exists.outputs.already != 'true'
+        if: steps.exists.outputs.already != 'true'
 
-      - run: dotnet build --configuration Release --no-restore -o artifacts -p:Version=${{ steps.ver.outputs.version }}
-        if: github.event_name != 'pull_request' && steps.exists.outputs.already != 'true'
+      - run: dotnet build --configuration Release --no-restore -o artifacts -p:Version=$env:VERSION
+        if: steps.exists.outputs.already != 'true'
 
-      - name: Release notes for ${{ steps.ver.outputs.version }} from manifest
-        if: github.event_name != 'pull_request' && steps.exists.outputs.already != 'true'
+      - name: Release notes from manifest
+        if: steps.exists.outputs.already != 'true'
         shell: pwsh
         run: |
           [xml]$doc = Get-Content -Raw -LiteralPath 'update.LiveSplit.AutoSplitIntegration.xml'
-          $u = $doc.SelectSingleNode("/updates/update[@version='${{ steps.ver.outputs.version }}']")
+          $u = $doc.SelectSingleNode("/updates/update[@version='$env:VERSION']")
           $lines = @($u.SelectNodes('changelog/change') | ForEach-Object { '- ' + $_.InnerText.Trim() })
           Set-Content -Path release-notes.md -Value $lines -Encoding utf8
           Get-Content release-notes.md
@@ -103,11 +119,11 @@ jobs:
       # Creates the tag v<version> at this commit and the release together, so nothing is left
       # dangling on failure. make_latest (default) promotes it to the "latest" release.
       - uses: softprops/action-gh-release@v3
-        if: github.event_name != 'pull_request' && steps.exists.outputs.already != 'true'
+        if: steps.exists.outputs.already != 'true'
         with:
-          tag_name: v${{ steps.ver.outputs.version }}
+          tag_name: v${{ needs.validate.outputs.version }}
           target_commitish: ${{ github.sha }}
-          name: v${{ steps.ver.outputs.version }}
+          name: v${{ needs.validate.outputs.version }}
           body_path: release-notes.md
           files: |
             artifacts/LiveSplit.AutoSplitIntegration.dll
