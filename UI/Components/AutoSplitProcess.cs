@@ -49,8 +49,6 @@ namespace LiveSplit.UI.Components
             set => version = settings.LabelAutoSplitVersion_Text = value;
         }
 
-        internal bool GameTimePausing { get; set; } = false;
-
         public AutoSplitProcess(AutoSplitIntegrationComponent component)
         {
             this.component = component;
@@ -112,27 +110,27 @@ namespace LiveSplit.UI.Components
 
             switch (e.Data)
             {
-                case "killme":
-                    Send("kill");
+                case Commands.KillMe:
+                    Send(Commands.Kill);
                     return;
-                case "start":
-                    component.IgnoreNextStart = true;
+                case Commands.Start:
+                    component.IgnoreNext(Commands.Start);
                     timer.Start();
                     if (component.GameTimePausing)
                         timer.InitializeGameTime();
 
                     settings.OnStart();
                     return;
-                case "split":
-                    component.IgnoreNextSplit = true;
+                case Commands.Split:
+                    component.IgnoreNext(Commands.Split);
                     timer.Split();
                     return;
-                case "reset":
-                    component.IgnoreNextReset = true;
+                case Commands.Reset:
+                    component.IgnoreNext(Commands.Reset);
                     timer.Reset();
                     settings.OnReset();
                     return;
-                case "pause":
+                case Commands.Pause:
                     if (component.GameTimePausing)
                         state.IsGameTimePaused ^= true;
                     else
@@ -170,7 +168,7 @@ namespace LiveSplit.UI.Components
             if (!IsRunning)
                 return;
 
-            Send("kill");
+            Send(Commands.Kill);
 
             try
             {
