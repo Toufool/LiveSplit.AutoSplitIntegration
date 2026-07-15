@@ -56,6 +56,16 @@
     <Version>0.0.0-dev</Version>
   </PropertyGroup>
 
+  <!--
+    Local-only dev tools live under tools/ with their own projects. This project sits at the
+    repo root, so its default `**/*.cs` glob would otherwise compile their sources (and their
+    generated obj/ attributes), breaking the product build. Keep the tools tree out.
+  -->
+  <ItemGroup>
+    <Compile Remove="tools/**/*.cs" />
+    <None Remove="tools/**/*" />
+  </ItemGroup>
+
   <ItemGroup>
     <!-- LiveSplit host assemblies, vendored under lib/ (see lib/README.md). -->
     <!-- Private=false: provided by the host at runtime, not shipped with the plugin. -->

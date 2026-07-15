@@ -26,6 +26,12 @@ Then either:
 
 The LiveSplit assemblies needed to compile (`LiveSplit.exe`, `LiveSplit.Core.dll`, `UpdateManager.dll`) are vendored under [`lib/`](lib/). See [`lib/README.md`](lib/README.md) to refresh them.
 
+## Previewing the settings UI
+
+The component's settings panel is a WinForms `UserControl`. To eyeball visual changes without installing the component into a real LiveSplit, run `scripts/preview-settings.ps1`. It builds [`tools/PreviewSettings`](tools/PreviewSettings/) (a throwaway `net481` WinExe that reads the component's `Settings` control by reflection and feeds it a minimal `LiveSplitState`) and launches it. Buttons are inert since there is no host.
+
+The tool works on Windows directly and on Linux/macOS via [Mono](https://www.mono-project.com/) (WinForms needs `libgdiplus`). Mono rendering approximates Windows rather than matching it pixel-for-pixel, but layout and anchoring are faithful. [`tools/`](tools/) is excluded from the product build.
+
 ## Changelog
 
 If your change is user-facing, add a `<change>` line to the **`version="0.0.0"`** `<update>` block in [`update.LiveSplit.AutoSplitIntegration.xml`](update.LiveSplit.AutoSplitIntegration.xml), in the same PR. Entries there reach users only once promoted into a real version at release.
