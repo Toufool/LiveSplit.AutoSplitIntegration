@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using LiveSplit.Model;
 using LiveSplit.UI.Components;
@@ -32,19 +33,39 @@ namespace LiveSplit.PreviewTool
                 ClientSize = settings.Size,
                 Text = "AutoSplit Integration Settings (preview)",
                 StartPosition = FormStartPosition.CenterScreen,
-                Icon = TryLoadLiveSplitIcon() ?? SystemIcons.Application,
+                Icon = TryLoadLiveSplitIcon(),
             };
             form.Controls.Add(settings);
             Application.Run(form);
         }
 
-        // LiveSplit.exe is copied next to this exe (see the vendored Reference's Private=true),
-        // so the window icon can be pulled from it at runtime instead of vendoring a separate .ico.
+        // LiveSplit.exe is copied next to this exe (see the vendored Reference's Private=true), so the
+        // window icon can be pulled from it at runtime instead of vendoring a separate .ico. Use shell32's
+        // ExtractIconEx rather than Icon.ExtractAssociatedIcon: the latter returns a generic placeholder
+        // under wine's Mono, while ExtractIconEx reads the real embedded icon on both Windows and wine.
         private static Icon? TryLoadLiveSplitIcon()
         {
             var liveSplitExePath = Path.Combine(AppContext.BaseDirectory, "LiveSplit.exe");
-            return Icon.ExtractAssociatedIcon(liveSplitExePath);
+            var largeIcons = new IntPtr[1];
+            if (ExtractIconEx(liveSplitExePath, 0, largeIcons, null, 1) == 0 || largeIcons[0] == IntPtr.Zero)
+                return null;
+
+            try
+            {
+                // Icon.FromHandle does not own the handle, so clone to a managed icon before freeing it.
+                return (Icon)Icon.FromHandle(largeIcons[0]).Clone();
+            }
+            finally
+            {
+                DestroyIcon(largeIcons[0]);
+            }
         }
+
+        [DllImport("shell32.dll", CharSet = CharSet.Unicode)]
+        private static extern uint ExtractIconEx(string fileName, int iconIndex, IntPtr[] largeIcons, IntPtr[]? smallIcons, uint iconCount);
+
+        [DllImport("user32.dll")]
+        private static extern bool DestroyIcon(IntPtr handle);
 
         private static LiveSplitState MakeState()
         {
