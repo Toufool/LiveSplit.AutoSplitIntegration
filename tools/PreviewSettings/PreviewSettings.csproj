@@ -6,14 +6,12 @@
   Launch via scripts/preview-settings.ps1. See CONTRIBUTING.md > Previewing the settings UI.
   -->
   <PropertyGroup>
-    <TargetFramework>net481</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
     <OutputType>Exe</OutputType>
-    <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
     <!-- Reflection reaches internal types; no InternalsVisibleTo needed on the product. -->
     <AssemblyName>PreviewSettings</AssemblyName>
     <RootNamespace>LiveSplit.PreviewTool</RootNamespace>
+    <!-- Extracted from lib/LiveSplit.exe, just so the preview window doesn't look bare. -->
+    <ApplicationIcon>LiveSplit.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
