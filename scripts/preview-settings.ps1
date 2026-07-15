@@ -20,8 +20,6 @@ if (-not $IsWindows) {
   if (-not (Get-Command wine -ErrorAction SilentlyContinue)) {
     throw 'wine not found. Install wine to preview this Windows-only UI on Linux.'
   }
-
-  $env:WINEDEBUG = '-all'  # silence wine's noisy warnings; unset it to debug wine itself
 }
 
 dotnet build $project --configuration Release
