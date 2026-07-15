@@ -1,4 +1,4 @@
-﻿# AutoSplit Integration [![Build](/../../actions/workflows/build.yml/badge.svg)](/../../actions/workflows/build.yml) [![SemVer](https://badgen.net/badge/_/SemVer%20compliant/grey?label)](https://semver.org/)
+﻿# AutoSplit Integration [![CI](/../../actions/workflows/ci.yml/badge.svg)](/../../actions/workflows/build.yml) [![SemVer](https://badgen.net/badge/_/SemVer%20compliant/grey?label)](https://semver.org/)
 
 Directly connects [AutoSplit](https://github.com/Toufool/Auto-Split) with [LiveSplit](https://github.com/LiveSplit/LiveSplit).
 
