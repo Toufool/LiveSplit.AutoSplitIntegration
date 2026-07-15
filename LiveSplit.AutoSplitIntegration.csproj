@@ -37,30 +37,19 @@
     <RootNamespace>LiveSplit</RootNamespace>
     <AssemblyName>LiveSplit.AutoSplitIntegration</AssemblyName>
     <Deterministic>true</Deterministic>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+    <!-- Ship a full (Windows) PDB alongside the DLL for readable line numbers in crash reports -->
+    <DebugSymbols>true</DebugSymbols>
+    <!-- .NET Framework runtime's stack-trace reader doesn't reliably resolve portable PDBs -->
+    <DebugType>full</DebugType>
 
     <!-- Assembly metadata -->
     <Product>LiveSplit.AutoSplitIntegration</Product>
     <Description>Directly connects AutoSplit with LiveSplit.</Description>
     <Company>Toufool</Company>
     <Copyright>Copyright © 2026</Copyright>
-    <!--
-      When changing the version, remember to also add an entry to
-      update/Components/update.LiveSplit.AutoSplitIntegration.xml
-    -->
-    <Version>1.8.3</Version>
-  </PropertyGroup>
-
-  <!--
-    Explicit per-config OutputPath. AppendTargetFrameworkToOutputPath=false stops the
-    TFM being appended, but does not itself set these paths. Debug output feeds the
-    committed auto-update artifact under update/Components/.
-  -->
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <OutputPath>update\Components\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <OutputPath>..\..\bin\Release\Components\</OutputPath>
+    <!-- Dev placeholder; releases are versioned from the git tag via CI (-p:Version). -->
+    <Version>0.0.0-dev</Version>
   </PropertyGroup>
 
   <ItemGroup>

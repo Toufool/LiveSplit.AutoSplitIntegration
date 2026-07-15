@@ -2,9 +2,6 @@
 [Bb]in/
 [Oo]bj/
 
-# Debug symbols (the tracked artifact under update/Components/ is the .dll only)
-*.pdb
-
 # CI build output (dotnet build -o artifacts)
 artifacts/
 
