@@ -48,7 +48,10 @@ namespace LiveSplit.UI.Components
                     setProperty();
             }
 
-            catch { }
+            // Control was disposed or its handle destroyed mid-update (e.g. AutoSplit
+            // process events firing while the layout is being torn down on shutdown).
+            catch (ObjectDisposedException) { }
+            catch (InvalidOperationException) { }
         }
 
         internal AutoSplitIntegrationComponentSettings(AutoSplitIntegrationComponent component)
