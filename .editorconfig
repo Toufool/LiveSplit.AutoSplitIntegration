@@ -13,8 +13,7 @@ indent_style = space
 indent_size = 2
 # tab_width defaults indent_size when indent_size is a number, but VS will add it back
 tab_width = 2
-# TODO: Change back in a formatting pass
-end_of_line = crlf
+end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true

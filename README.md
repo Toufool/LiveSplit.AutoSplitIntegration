@@ -25,5 +25,12 @@ Building from source and contributing guidelines are documented in [`CONTRIBUTIN
 
 ## Resources
 
-- Still need help? [Open an issue](../../../AutoSplit/issues)
-- Join the [AutoSplit Discord](https://discord.gg/Qcbxv9y)
+Still need help?
+
+<!-- open issues sorted by reactions -->
+
+- [Check if your issue already exists](../../../AutoSplit/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
+  - If it does, upvote it 👍
+  - If it doesn't, create a new one
+- Join the [AutoSplit Discord\
+  ![AutoSplit Discord](https://badgen.net/discord/members/Qcbxv9y)](https://discord.gg/Qcbxv9y)
