@@ -30,7 +30,7 @@ The LiveSplit assemblies needed to compile (`LiveSplit.exe`, `LiveSplit.Core.dll
 
 The component's settings panel is a WinForms `UserControl`. To eyeball visual changes without installing the component into a real LiveSplit, run `scripts/preview-settings.ps1`. It builds [`tools/PreviewSettings`](tools/PreviewSettings/) (a throwaway `net481` WinExe that reads the component's `Settings` control by reflection and feeds it a minimal `LiveSplitState`) and launches it. Buttons are inert since there is no host.
 
-The tool works on Windows directly and on Linux/macOS via [Mono](https://www.mono-project.com/) (WinForms needs `libgdiplus`). Mono rendering approximates Windows rather than matching it pixel-for-pixel, but layout and anchoring are faithful. [`tools/`](tools/) is excluded from the product build.
+The tool works on Windows directly. On Linux it runs under [wine](https://www.winehq.org/), whose bundled Mono renders WinForms through wine's own graphics stack, so text and layout match Windows and the real LiveSplit host. Native [Mono](https://www.mono-project.com/) is intentionally not used: it renders this UI via `libgdiplus`, which intermittently draws buttons and labels with no text — a [Mono/libgdiplus rendering bug](https://github.com/TASEmulators/BizHawk/issues/4469), not a component bug — which defeats the purpose of a visual preview. [`tools/`](tools/) is excluded from the product build.
 
 ## Changelog
 
