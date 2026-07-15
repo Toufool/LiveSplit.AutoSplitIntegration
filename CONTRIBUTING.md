@@ -1,0 +1,48 @@
+# Contributing guidelines
+
+## Style guide and formatting
+
+Avoid manually wrapping lines in markdown files.
+
+The project is setup to automatically configure VSCode with the proper extensions and settings. Fixers and formatters will be run on save.\
+Project configurations for other IDEs are welcome.
+
+You can run `dotnet format` to automatically format csharp files according to `.editorconfig`.
+
+<!-- TODO: The CI will automatically fix and commit any autofixable issue your changes may have. -->
+
+## Compiling
+
+Requirements:
+
+- The [.NET SDK 10.x](https://dotnet.microsoft.com/download)
+- The [.NET Framework 4.8.1 Developer Pack](https://dotnet.microsoft.com/download/dotnet-framework/net481)
+- Optionally [Visual Studio 2022](https://visualstudio.microsoft.com/vs)
+
+Then either:
+
+- Run `dotnet build --configuration Release`, or
+- Open `LiveSplit.AutoSplitIntegration.csproj` in Visual Studio 2022 and build.
+
+The LiveSplit assemblies needed to compile (`LiveSplit.exe`, `LiveSplit.Core.dll`, `UpdateManager.dll`) are vendored under [`lib/`](lib/). See [`lib/README.md`](lib/README.md) to refresh them.
+
+## Changelog
+
+If your change is user-facing, add a `<change>` line to the **`version="0.0.0"`** `<update>` block in [`update.LiveSplit.AutoSplitIntegration.xml`](update.LiveSplit.AutoSplitIntegration.xml), in the same PR. Entries there reach users only once promoted into a real version at release.
+
+Do not modify `version="0.0.0"` or the `<Version>` in [`LiveSplit.AutoSplitIntegration.csproj`](LiveSplit.AutoSplitIntegration.csproj) (fallback for local builds). The real release version comes from the **manifest**: the newest non-`0.0.0` `<update version>` is what gets released automatically by [.github/release.yml](.github/release.yml).
+
+## Releasing a new version
+
+We use LiveSplit's built-in component auto-updater: LiveSplit polls the factory's `XMLURL`, and offers an update when a listed `<update version="...">` is newer than the installed component's `Version`.
+
+To publish a release, edit [`update.LiveSplit.AutoSplitIntegration.xml`](update.LiveSplit.AutoSplitIntegration.xml):
+
+1. Rename the `version="0.0.0"` block to `version="X.Y.Z"` (its staged `<change>`s become this release's changelog)
+1. Move the last release's `<files>` to it and update the version there. Move the previous release back to an empty `<files />`. (only the newest release lists files; see the note in that XML)
+1. Add a fresh empty `version="0.0.0"` block on top for the next cycle
+1. Commit and merge to `main`
+
+The **Release** workflow then validates the manifest, builds with the manifest's version, and publishes a `vX.Y.Z` GitHub release+tag with the `.dll` + `.pdb` attached.
+
+If a release fails partway, just re-run it from [`Actions > Release`](https://github.com/Toufool/LiveSplit.AutoSplitIntegration/actions/workflows/build.yml)`> Run workflow` after fixing the issue. The tag is only created on a successful publish, so there is nothing to delete or clean up first.

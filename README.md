@@ -1,11 +1,12 @@
-﻿# AutoSplit Integration
+﻿# AutoSplit Integration [![CI](/../../actions/workflows/ci.yml/badge.svg)](/../../actions/workflows/build.yml) [![SemVer](https://badgen.net/badge/_/SemVer%20compliant/grey?label)](https://semver.org/)
 
 Directly connects [AutoSplit](https://github.com/Toufool/Auto-Split) with [LiveSplit](https://github.com/LiveSplit/LiveSplit).
 
 ## Installation
 
 - Close AutoSplit if it’s currently open
-- Download [the `.dll` file](/update/Components/LiveSplit.AutoSplitIntegration.dll?raw=true) and place it into your `[...]\LiveSplit\Components` folder.
+- Download [the `.dll` file](../../releases/latest/download/LiveSplit.AutoSplitIntegration.dll) and place it into your `[...]\LiveSplit\Components` folder.
+  - Optionally also download the matching [`.pdb` file](../../releases/latest/download/LiveSplit.AutoSplitIntegration.pdb) into the same folder. It adds source line numbers to crash reports, which helps when reporting bugs.
 - Open LiveSplit -> Right Click -> Edit Layout -> Plus Button -> Control -> AutoSplit Integration.
 - Click Layout Settings -> AutoSplit Integration
 - Click the Browse buttons to locate your AutoSplit Path (path to `AutoSplit.exe`) and Profile Path (path to your AutoSplit `.toml` profile file) respectively.
@@ -18,10 +19,9 @@ Directly connects [AutoSplit](https://github.com/Toufool/Auto-Split) with [LiveS
 - If you want to close AutoSplit, just close its window. Alternatively, if AutoSplit is for some reason not responding, you can kill it in the same menu where you can reopen it. This way your settings won’t be saved though.
 - You can also find the options to reopen/kill AutoSplit in the component’s settings.
 
-## Compiling
+## Contributing
 
-- Clone/download LiveSplit and this repository
-- Open it in [Visual Studio 2019](https://visualstudio.microsoft.com/vs)
+Building from source and contributing guidelines are documented in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Resources
 
