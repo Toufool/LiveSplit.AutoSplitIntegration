@@ -71,7 +71,7 @@ $frag.InnerXml = "<update version=`"0.0.0`">`n    <files />`n    <changelog>`n  
 # Save without a BOM and without re-indenting (the tree already carries its whitespace).
 $settings = New-Object System.Xml.XmlWriterSettings
 $settings.Encoding = New-Object System.Text.UTF8Encoding($false)
-$settings.NewLineChars = "`r`n"  # match the manifest's CRLF (.editorconfig end_of_line = crlf)
+$settings.NewLineChars = "`n"  # match the manifest's LF (.editorconfig end_of_line = lf)
 $writer = [System.Xml.XmlWriter]::Create($file, $settings)
 try { $doc.Save($writer) } finally { $writer.Dispose() }
 Write-Host "Promoted 0.0.0 -> $Version in $Path (moved <file> attributes onto one line each)"
