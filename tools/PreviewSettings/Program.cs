@@ -33,7 +33,7 @@ namespace LiveSplit.PreviewTool
                 ClientSize = settings.Size,
                 Text = "AutoSplit Integration Settings (preview)",
                 StartPosition = FormStartPosition.CenterScreen,
-                Icon = TryLoadLiveSplitIcon(),
+                Icon = TryLoadLiveSplitIcon() ?? SystemIcons.Application,
             };
             form.Controls.Add(settings);
             Application.Run(form);
@@ -43,6 +43,8 @@ namespace LiveSplit.PreviewTool
         // window icon can be pulled from it at runtime instead of vendoring a separate .ico. Use shell32's
         // ExtractIconEx rather than Icon.ExtractAssociatedIcon: the latter returns a generic placeholder
         // under wine's Mono, while ExtractIconEx reads the real embedded icon on both Windows and wine.
+        // On wine the transparent corners render black (the HICON's 32-bit alpha is dropped); Windows is
+        // unaffected. Accepted as cosmetic for this preview-only tool.
         private static Icon? TryLoadLiveSplitIcon()
         {
             var liveSplitExePath = Path.Combine(AppContext.BaseDirectory, "LiveSplit.exe");
