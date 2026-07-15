@@ -36,12 +36,7 @@ Do not modify `version="0.0.0"` or the `<Version>` in [`LiveSplit.AutoSplitInteg
 
 We use LiveSplit's built-in component auto-updater: LiveSplit polls the factory's `XMLURL`, and offers an update when a listed `<update version="...">` is newer than the installed component's `Version`.
 
-To publish a release, edit [`update.LiveSplit.AutoSplitIntegration.xml`](update.LiveSplit.AutoSplitIntegration.xml):
-
-1. Rename the `version="0.0.0"` block to `version="X.Y.Z"` (its staged `<change>`s become this release's changelog)
-1. Move the last release's `<files>` to it and update the version there. Move the previous release back to an empty `<files />`. (only the newest release lists files; see the note in that XML)
-1. Add a fresh empty `version="0.0.0"` block on top for the next cycle
-1. Commit and merge to `main`
+To publish a release, run `./scripts/bump-version.ps1 X.X.X` with the new version, then commit and push to `main`.
 
 The **Release** workflow then validates the manifest, builds with the manifest's version, and publishes a `vX.Y.Z` GitHub release+tag with the `.dll` + `.pdb` attached.
 

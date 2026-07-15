@@ -27,24 +27,21 @@
   <update version="0.0.0">
     <files />
     <changelog>
+    </changelog>
+  </update>
+  <update version="1.8.3">
+    <files>
+      <file path="download/v1.8.3/LiveSplit.AutoSplitIntegration.dll" localPath="Components/LiveSplit.AutoSplitIntegration.dll" status="changed" />
+      <file path="download/v1.8.3/LiveSplit.AutoSplitIntegration.pdb" localPath="Components/LiveSplit.AutoSplitIntegration.pdb" status="added" />
+    </files>
+    <changelog>
       <change>Rebuilt on .NET Framework 4.8.1.</change>
       <change>Fixed a `System.NullReferenceException` when setting a "Settings Path" without first starting AutoSplit.</change>
       <change>Fixed the auto-update source.</change>
     </changelog>
   </update>
   <update version="1.8.2">
-    <files>
-      <file
-        path="download/v1.8.2/LiveSplit.AutoSplitIntegration.dll"
-        localPath="Components/LiveSplit.AutoSplitIntegration.dll"
-        status="changed"
-      />
-      <file
-        path="download/v1.8.2/LiveSplit.AutoSplitIntegration.pdb"
-        localPath="Components/LiveSplit.AutoSplitIntegration.pdb"
-        status="added"
-      />
-    </files>
+    <files />
     <changelog>
       <change>Fixes AutoSplit being reopened on clicking “Cancel”.</change>
     </changelog>
