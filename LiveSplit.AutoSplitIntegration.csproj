@@ -1,46 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!--
-  The source skeleton for this configuration can be found at
-  https://github.com/BesLogic/shared-configs/blob/main/Directory.Build.props
-  Modifications to this file that are not project-specific should also be done upstream.
-  -->
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
-    <Nullable>enable</Nullable>
-
-    <!--
-      Create lock files. Allows faster restores and reproducibility
-      without having to pin to exact versions in csproj PackageReference.
-    -->
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <!-- Ensure we don't accidentally update or bypass the lock files (missing `locked-mode`) -->
-    <!-- lock files can still be regenerated with: dotnet restore -p:RestoreLockedMode=false -->
-    <RestoreLockedMode>true</RestoreLockedMode>
-
-    <!-- NuGet Security Audit https://learn.microsoft.com/en-us/nuget/concepts/auditing-packages -->
-    <NuGetAudit>true</NuGetAudit>
-    <NuGetAuditLevel>moderate</NuGetAuditLevel>
-    <!--
-      Only fail on high + critical: https://learn.microsoft.com/en-us/nuget/concepts/auditing-packages#warning-codes
-      Alternatively this can be made to only fail on CI:
-      https://learn.microsoft.com/en-us/nuget/concepts/auditing-packages#running-nuget-audit-in-ci
-    -->
-    <WarningsAsErrors>$(WarningsAsErrors);NU1903;NU1904</WarningsAsErrors>
-    <!-- Will be default in .NET 10 -->
-    <NuGetAuditMode>all</NuGetAuditMode>
-  </PropertyGroup>
-
-  <!-- Properties specific to this project below -->
-  <PropertyGroup>
-    <TargetFramework>net481</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
     <OutputType>Library</OutputType>
     <RootNamespace>LiveSplit</RootNamespace>
     <AssemblyName>LiveSplit.AutoSplitIntegration</AssemblyName>
     <Deterministic>true</Deterministic>
-
-    <!-- No lock file: the only NuGet package is a version-pinned build-only reference, so it buys nothing. -->
-    <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
 
     <!-- Ship a full (Windows) PDB alongside the DLL for readable line numbers in crash reports -->
     <DebugSymbols>true</DebugSymbols>
@@ -55,6 +18,16 @@
     <!-- Dev placeholder; releases are versioned from the git tag via CI (-p:Version). -->
     <Version>0.0.0-dev</Version>
   </PropertyGroup>
+
+  <!--
+    Local-only dev tools live under tools/ with their own projects. This project sits at the
+    repo root, so its default `**/*.cs` glob would otherwise compile their sources (and their
+    generated obj/ attributes), breaking the product build. Keep the tools tree out.
+  -->
+  <ItemGroup>
+    <Compile Remove="tools/**/*.cs" />
+    <None Remove="tools/**/*" />
+  </ItemGroup>
 
   <ItemGroup>
     <!-- LiveSplit host assemblies, vendored under lib/ (see lib/README.md). -->
