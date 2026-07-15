@@ -10,8 +10,6 @@
     <!-- Reflection reaches internal types; no InternalsVisibleTo needed on the product. -->
     <AssemblyName>PreviewSettings</AssemblyName>
     <RootNamespace>LiveSplit.PreviewTool</RootNamespace>
-    <!-- Extracted from lib/LiveSplit.exe, just so the preview window doesn't look bare. -->
-    <ApplicationIcon>LiveSplit.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,8 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Product refs are Private=false (host-provided), so they don't flow here. This tool
-         has no host, so copy the vendored assemblies into its output for runtime resolution. -->
+    <!--
+      Product refs are Private=false (host-provided), so they don't flow here.
+      This tool has no host, so copy the vendored assemblies into its output for runtime resolution.
+    -->
     <Reference Include="LiveSplit">
       <HintPath>..\..\lib\LiveSplit.exe</HintPath>
       <Private>true</Private>

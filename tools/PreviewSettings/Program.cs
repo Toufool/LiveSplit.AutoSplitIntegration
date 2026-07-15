@@ -1,6 +1,7 @@
 using System;
+using System.Drawing;
+using System.IO;
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Windows.Forms;
 using LiveSplit.Model;
 using LiveSplit.UI.Components;
@@ -31,9 +32,18 @@ namespace LiveSplit.PreviewTool
                 ClientSize = settings.Size,
                 Text = "AutoSplit Integration Settings (preview)",
                 StartPosition = FormStartPosition.CenterScreen,
+                Icon = TryLoadLiveSplitIcon() ?? SystemIcons.Application,
             };
             form.Controls.Add(settings);
             Application.Run(form);
+        }
+
+        // LiveSplit.exe is copied next to this exe (see the vendored Reference's Private=true),
+        // so the window icon can be pulled from it at runtime instead of vendoring a separate .ico.
+        private static Icon? TryLoadLiveSplitIcon()
+        {
+            var liveSplitExePath = Path.Combine(AppContext.BaseDirectory, "LiveSplit.exe");
+            return Icon.ExtractAssociatedIcon(liveSplitExePath);
         }
 
         private static LiveSplitState MakeState()
@@ -41,15 +51,9 @@ namespace LiveSplit.PreviewTool
             // LiveSplitState(run, form, layout, layoutSettings, settings). Only CurrentPhase is
             // read here (enum default NotRunning), so nulls are fine; fall back to an
             // uninitialized instance if a future ctor change starts dereferencing them.
-            try
-            {
-                return (LiveSplitState)Activator.CreateInstance(
-                    typeof(LiveSplitState), new object?[] { null, null, null, null, null })!;
-            }
-            catch
-            {
-                return (LiveSplitState)FormatterServices.GetUninitializedObject(typeof(LiveSplitState));
-            }
+            object?[] args = [null, null, null, null, null];
+            return (LiveSplitState)Activator.CreateInstance(typeof(LiveSplitState), args);
+
         }
     }
 }
