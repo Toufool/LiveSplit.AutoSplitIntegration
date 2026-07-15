@@ -28,13 +28,9 @@ jobs:
       - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: "10.0.x"
-          cache: true
 
-      # The csproj sets RestoreLockedMode=true. So reproducible and safe.
-      - run: dotnet restore
-
-      # -o collects the output in a known, flat path for the upload step.
-      - run: dotnet build --configuration Debug --no-restore -o artifacts
+      # Debug + implicit restore. -o collects the output in a known, flat path for the upload step.
+      - run: dotnet build --configuration Debug -o artifacts
 
       - run: dotnet format --verify-no-changes
 

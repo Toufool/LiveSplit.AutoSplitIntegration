@@ -30,6 +30,7 @@
     <NuGetAuditMode>all</NuGetAuditMode>
   </PropertyGroup>
 
+  <!-- Properties specific to this project below -->
   <PropertyGroup>
     <TargetFramework>net481</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
@@ -37,6 +38,9 @@
     <RootNamespace>LiveSplit</RootNamespace>
     <AssemblyName>LiveSplit.AutoSplitIntegration</AssemblyName>
     <Deterministic>true</Deterministic>
+
+    <!-- No lock file: the only NuGet package is a version-pinned build-only reference, so it buys nothing. -->
+    <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
 
     <!-- Ship a full (Windows) PDB alongside the DLL for readable line numbers in crash reports -->
     <DebugSymbols>true</DebugSymbols>

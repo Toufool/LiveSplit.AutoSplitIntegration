@@ -11,11 +11,11 @@
 	Only the NEWEST <update> may list files. On update the updater collects the file changes
 	of EVERY entry newer than the installed version and downloads them sequentially, each into
 	its localPath. Because the version is baked into `path`, each version is a distinct
-	download key (no de-duplication), yet the same asset always targets the same localPath — so
+	download key (no de-duplication), yet the same asset always targets the same localPath, so
 	multiple listed versions would download to the same destination and the last write wins.
 	Worse, that order follows document order (newest first), so the OLDEST download lands last
 	and a multi-version jump would install a stale binary. Older entries therefore carry the
-	changelog only (empty <files>); the changelog is aggregated separately, so it still shows.
+	changelog only (empty <files>). The changelog is aggregated separately, so it still shows.
 
 	Unreleased changes are staged in the version="0.0.0" <update> block. 0.0.0 is below every
 	real install, so the updater never offers it and never shows its changelog — it is an
