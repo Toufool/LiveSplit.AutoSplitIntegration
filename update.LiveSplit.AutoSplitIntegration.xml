@@ -27,12 +27,15 @@
   <update version="0.0.0">
     <files />
     <changelog>
+      <change>Added a "Start AutoSplit minimized" option (requires AutoSplit v2.4+).</change>
     </changelog>
   </update>
   <update version="1.8.3">
     <files>
-      <file path="download/v1.8.3/LiveSplit.AutoSplitIntegration.dll" localPath="Components/LiveSplit.AutoSplitIntegration.dll" status="changed" />
-      <file path="download/v1.8.3/LiveSplit.AutoSplitIntegration.pdb" localPath="Components/LiveSplit.AutoSplitIntegration.pdb" status="added" />
+      <file path="download/v1.8.3/LiveSplit.AutoSplitIntegration.dll"
+        localPath="Components/LiveSplit.AutoSplitIntegration.dll" status="changed" />
+      <file path="download/v1.8.3/LiveSplit.AutoSplitIntegration.pdb"
+        localPath="Components/LiveSplit.AutoSplitIntegration.pdb" status="added" />
     </files>
     <changelog>
       <change>Rebuilt on .NET Framework 4.8.1.</change>

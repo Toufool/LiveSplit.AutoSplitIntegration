@@ -65,7 +65,7 @@ namespace LiveSplit.UI.Components
                     StartInfo = new ProcessStartInfo()
                     {
                         FileName = component.AutoSplitPath,
-                        Arguments = "--auto-controlled",
+                        Arguments = component.StartMinimized ? "--auto-controlled --minimized" : "--auto-controlled",
                         UseShellExecute = false,
                         RedirectStandardInput = true,
                         RedirectStandardOutput = true,

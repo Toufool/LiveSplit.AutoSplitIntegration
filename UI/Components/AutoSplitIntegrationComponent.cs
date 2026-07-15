@@ -16,6 +16,8 @@ namespace LiveSplit.UI.Components
 
         internal bool GameTimePausing { get; set; } = false;
 
+        internal bool StartMinimized { get; set; } = false;
+
         internal AutoSplitIntegrationComponentSettings Settings { get; }
 
         internal LiveSplitState State { get; private set; }
