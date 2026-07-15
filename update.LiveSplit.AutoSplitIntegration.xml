@@ -18,10 +18,10 @@
 	changelog only (empty <files>). The changelog is aggregated separately, so it still shows.
 
 	Unreleased changes are staged in the version="0.0.0" <update> block. 0.0.0 is below every
-	real install, so the updater never offers it and never shows its changelog — it is an
-	in-file scratchpad. Add user-facing changes there as you develop. At release, rename that
-	block to the new version and give it the download/v<version>/ file paths, then add a fresh
-	empty 0.0.0 block for the next cycle. See CONTRIBUTING.md.
+	real install, so the updater never offers it and never shows its changelog. Add user-facing
+  changes there as you develop. At release, rename that	block to the new version and give it the
+  download/v<version>/ file paths, then add a fresh	empty 0.0.0 block for the next cycle.
+  See CONTRIBUTING.md.
 -->
 <updates>
   <update version="0.0.0">
@@ -29,7 +29,7 @@
     <changelog>
       <change>Rebuilt on .NET Framework 4.8.1.</change>
       <change>Fixed a `System.NullReferenceException` when setting a "Settings Path" without first starting AutoSplit.</change>
-      <change>Updated the auto-update source.</change>
+      <change>Fixed the auto-update source.</change>
     </changelog>
   </update>
   <update version="1.8.2">
