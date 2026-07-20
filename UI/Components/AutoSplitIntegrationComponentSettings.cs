@@ -76,6 +76,7 @@ namespace LiveSplit.UI.Components
             SettingsHelper.CreateSetting(document, settingsElement, "AutoSplitPath", component.AutoSplitPath);
             SettingsHelper.CreateSetting(document, settingsElement, "SettingsPath", component.SettingsPath);
             SettingsHelper.CreateSetting(document, settingsElement, "GameTimePausing", component.GameTimePausing);
+            SettingsHelper.CreateSetting(document, settingsElement, "StartMinimized", component.StartMinimized);
 
             return settingsElement;
         }
@@ -88,6 +89,7 @@ namespace LiveSplit.UI.Components
             component.AutoSplitPath = textBoxAutoSplitPath.Text = SettingsHelper.ParseString(settings["AutoSplitPath"]);
             component.SettingsPath = textBoxSettingsPath.Text = SettingsHelper.ParseString(settings["SettingsPath"]);
             component.GameTimePausing = checkBoxGameTimePausing.Checked = SettingsHelper.ParseBool(settings["GameTimePausing"]);
+            component.StartMinimized = checkBoxStartMinimized.Checked = SettingsHelper.ParseBool(settings["StartMinimized"]);
 
             if (component.AutoSplit != null)
             {
@@ -141,6 +143,8 @@ namespace LiveSplit.UI.Components
         private void ButtonKillAutoSplit_Click(object sender, EventArgs e) => component.KillAutoSplit();
 
         private void CheckBoxGameTimePausing_CheckedChanged(object sender, EventArgs e) => component.GameTimePausing = checkBoxGameTimePausing.Checked;
+
+        private void CheckBoxStartMinimized_CheckedChanged(object sender, EventArgs e) => component.StartMinimized = checkBoxStartMinimized.Checked;
 
         private void TextBoxAutoSplitPath_TextChanged(object sender, EventArgs e) => component.AutoSplitPath = textBoxAutoSplitPath.Text;
 
