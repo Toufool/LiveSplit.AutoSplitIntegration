@@ -28,6 +28,7 @@
     <files />
     <changelog>
       <change>Added a "Start AutoSplit minimized" option (requires AutoSplit v2.4+).</change>
+      <change>Show the AutoSplit Integration component version in the settings panel.</change>
     </changelog>
   </update>
   <update version="1.8.3">

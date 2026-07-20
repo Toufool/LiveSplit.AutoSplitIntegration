@@ -14,17 +14,17 @@ namespace LiveSplit.UI.Components
 
         internal string LabelAutoSplitVersion_Text
         {
-            set => SetControlProperty(labelAutoSplitVersion, nameof(labelAutoSplitVersion.Text), "AutoSplit version: " + value);
+            set => SetControlProperty(labelAutoSplitVersion, nameof(Label.Text), "AutoSplit version: " + value);
         }
 
         internal bool ButtonStartAutoSplit_Enabled
         {
-            set => SetControlProperty(buttonStartAutoSplit, nameof(buttonKillAutoSplit.Enabled), value);
+            set => SetControlProperty(buttonStartAutoSplit, nameof(Button.Enabled), value);
         }
 
         internal bool ButtonKillAutoSplit_Enabled
         {
-            set => SetControlProperty(buttonKillAutoSplit, nameof(buttonKillAutoSplit.Enabled), value);
+            set => SetControlProperty(buttonKillAutoSplit, nameof(Button.Enabled), value);
         }
 
         private void SetControlProperty<T>(Control control, string propertyName, T value) where T : IEquatable<T>
@@ -48,7 +48,10 @@ namespace LiveSplit.UI.Components
                     setProperty();
             }
 
-            catch { }
+            // Control was disposed or its handle destroyed mid-update (e.g. AutoSplit
+            // process events firing while the layout is being torn down on shutdown).
+            catch (ObjectDisposedException) { }
+            catch (InvalidOperationException) { }
         }
 
         internal AutoSplitIntegrationComponentSettings(AutoSplitIntegrationComponent component)
@@ -58,6 +61,7 @@ namespace LiveSplit.UI.Components
 
             InitializeComponent();
 
+            labelComponentVersion.Text = "AutoSplit Integration version: " + GetType().Assembly.GetName().Version;
             checkBoxGameTimePausing.Enabled = state.CurrentPhase == TimerPhase.NotRunning;
         }
 
@@ -69,7 +73,6 @@ namespace LiveSplit.UI.Components
         {
             XmlElement settingsElement = document.CreateElement("Settings");
 
-            SettingsHelper.CreateSetting(document, settingsElement, "Version", "1.8");
             SettingsHelper.CreateSetting(document, settingsElement, "AutoSplitPath", component.AutoSplitPath);
             SettingsHelper.CreateSetting(document, settingsElement, "SettingsPath", component.SettingsPath);
             SettingsHelper.CreateSetting(document, settingsElement, "GameTimePausing", component.GameTimePausing);
@@ -95,46 +98,45 @@ namespace LiveSplit.UI.Components
             }
         }
 
-        private void ButtonAutoSplitPathBrowse_Click(object sender, EventArgs e)
+        private void BrowseForFile(string filter, string currentPath, TextBox pathTextBox, Action<string> onSelected)
         {
             var dialog = new OpenFileDialog()
             {
-                Filter = "AutoSplit.exe|*.exe"
+                Filter = filter,
             };
 
-            if (File.Exists(component.AutoSplitPath))
+            if (File.Exists(currentPath))
             {
-                dialog.InitialDirectory = Path.GetDirectoryName(component.AutoSplitPath);
-                dialog.FileName = Path.GetFileName(component.AutoSplitPath);
+                dialog.InitialDirectory = Path.GetDirectoryName(currentPath);
+                dialog.FileName = Path.GetFileName(currentPath);
             }
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                component.AutoSplitPath = textBoxAutoSplitPath.Text = dialog.FileName;
+                pathTextBox.Text = dialog.FileName;
+                onSelected(dialog.FileName);
+            }
+        }
 
+        private void ButtonAutoSplitPathBrowse_Click(object sender, EventArgs e) => BrowseForFile(
+            "AutoSplit.exe|*.exe",
+            component.AutoSplitPath,
+            textBoxAutoSplitPath,
+            path =>
+            {
+                component.AutoSplitPath = path;
                 component.StartAutoSplit();
-            }
-        }
+            });
 
-        private void ButtonSettingsPathBrowse_Click(object sender, EventArgs e)
-        {
-            var dialog = new OpenFileDialog()
+        private void ButtonSettingsPathBrowse_Click(object sender, EventArgs e) => BrowseForFile(
+            "AutoSplit Settings (*.pkl; *.toml)|*.pkl;*.toml|All files (*.*)|*.*",
+            component.SettingsPath,
+            textBoxSettingsPath,
+            path =>
             {
-                Filter = "AutoSplit Settings (*.pkl; *.toml)|*.pkl;*.toml|All files (*.*)|*.*"
-            };
-
-            if (File.Exists(component.SettingsPath))
-            {
-                dialog.InitialDirectory = Path.GetDirectoryName(component.SettingsPath);
-                dialog.FileName = Path.GetFileName(component.SettingsPath);
-            }
-
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                component.SettingsPath = textBoxSettingsPath.Text = dialog.FileName;
+                component.SettingsPath = path;
                 component.LoadAutoSplitSettings();
-            }
-        }
+            });
 
         private void ButtonStartAutoSplit_Click(object sender, EventArgs e) => component.StartAutoSplit();
 

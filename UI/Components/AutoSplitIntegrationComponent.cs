@@ -24,11 +24,11 @@ namespace LiveSplit.UI.Components
 
         internal TimerModel Timer { get; private set; }
 
-        internal bool IgnoreNextStart { get; set; } = false;
+        private readonly HashSet<string> ignoreNextCommands = [];
 
-        internal bool IgnoreNextSplit { get; set; } = false;
+        internal void IgnoreNext(string command) => ignoreNextCommands.Add(command);
 
-        internal bool IgnoreNextReset { get; set; } = false;
+        private bool ConsumeIgnore(string command) => ignoreNextCommands.Remove(command);
 
         public string ComponentName => "AutoSplit Integration";
 
@@ -110,7 +110,7 @@ namespace LiveSplit.UI.Components
         {
             if (!string.IsNullOrEmpty(SettingsPath) && File.Exists(SettingsPath))
             {
-                AutoSplit?.Send("settings|" + SettingsPath);
+                AutoSplit?.Send(Commands.Settings(SettingsPath));
             }
         }
 
@@ -118,13 +118,10 @@ namespace LiveSplit.UI.Components
 
         private void State_OnStart(object sender, EventArgs e)
         {
-            if (IgnoreNextStart)
-            {
-                IgnoreNextStart = false;
+            if (ConsumeIgnore(Commands.Start))
                 return;
-            }
 
-            AutoSplit.Send("start");
+            AutoSplit.Send(Commands.Start);
             if (GameTimePausing)
                 Timer.InitializeGameTime();
 
@@ -133,30 +130,24 @@ namespace LiveSplit.UI.Components
 
         private void State_OnSplit(object sender, EventArgs e)
         {
-            if (IgnoreNextSplit)
-            {
-                IgnoreNextSplit = false;
+            if (ConsumeIgnore(Commands.Split))
                 return;
-            }
 
-            AutoSplit.Send("split");
+            AutoSplit.Send(Commands.Split);
         }
 
         private void State_OnReset(object sender, TimerPhase e)
         {
-            if (IgnoreNextReset)
-            {
-                IgnoreNextReset = false;
+            if (ConsumeIgnore(Commands.Reset))
                 return;
-            }
 
-            AutoSplit.Send("reset");
+            AutoSplit.Send(Commands.Reset);
             Settings.OnReset();
         }
 
-        private void State_OnSkipSplit(object sender, EventArgs e) => AutoSplit.Send("skip");
+        private void State_OnSkipSplit(object sender, EventArgs e) => AutoSplit.Send(Commands.Skip);
 
-        private void State_OnUndoSplit(object sender, EventArgs e) => AutoSplit.Send("undo");
+        private void State_OnUndoSplit(object sender, EventArgs e) => AutoSplit.Send(Commands.Undo);
 
     }
 }
