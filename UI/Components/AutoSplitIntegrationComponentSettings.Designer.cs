@@ -100,19 +100,18 @@ namespace LiveSplit.UI.Components
             this.tableLayoutPanel1.Controls.Add(this.checkBoxStartMinimized, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.buttonAutoSplitPathBrowse, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelAutoSplitPath, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelComponentVersion, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.labelComponentVersion, 0, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 139);
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 131);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 160);
             this.tableLayoutPanel1.TabIndex = 0;
             //
             // buttonSettingsPathBrowse
@@ -249,15 +248,16 @@ namespace LiveSplit.UI.Components
             this.checkBoxStartMinimized.Text = "Start AutoSplit minimized (requires AutoSplit v2.4+)";
             this.checkBoxStartMinimized.UseVisualStyleBackColor = true;
             this.checkBoxStartMinimized.CheckedChanged += new System.EventHandler(this.CheckBoxStartMinimized_CheckedChanged);
+            //
             // labelComponentVersion
             //
             this.labelComponentVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.labelComponentVersion, 3);
-            this.labelComponentVersion.Location = new System.Drawing.Point(3, 111);
+            this.labelComponentVersion.Location = new System.Drawing.Point(3, 143);
             this.labelComponentVersion.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.labelComponentVersion.Name = "labelComponentVersion";
             this.labelComponentVersion.Size = new System.Drawing.Size(456, 20);
-            this.labelComponentVersion.TabIndex = 13;
+            this.labelComponentVersion.TabIndex = 15;
             this.labelComponentVersion.Text = "AutoSplit Integration version:";
             this.labelComponentVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             //
@@ -268,7 +268,7 @@ namespace LiveSplit.UI.Components
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "AutoSplitIntegrationComponentSettings";
             this.Padding = new System.Windows.Forms.Padding(7);
-            this.Size = new System.Drawing.Size(476, 173);
+            this.Size = new System.Drawing.Size(476, 174);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
