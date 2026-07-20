@@ -11,6 +11,7 @@ namespace LiveSplit.UI.Components
     {
         private readonly AutoSplitIntegrationComponent component;
         private readonly LiveSplitState state;
+        private readonly Setting[] settingDefs;
 
         internal string LabelAutoSplitVersion_Text
         {
@@ -61,6 +62,10 @@ namespace LiveSplit.UI.Components
 
             InitializeComponent();
 
+            settingDefs = BuildSettingDefs();
+            foreach (Setting setting in settingDefs)
+                setting.Bind();
+
             checkBoxGameTimePausing.Enabled = state.CurrentPhase == TimerPhase.NotRunning;
         }
 
@@ -73,9 +78,8 @@ namespace LiveSplit.UI.Components
             XmlElement settingsElement = document.CreateElement("Settings");
 
             SettingsHelper.CreateSetting(document, settingsElement, "Version", "1.8");
-            SettingsHelper.CreateSetting(document, settingsElement, "AutoSplitPath", component.AutoSplitPath);
-            SettingsHelper.CreateSetting(document, settingsElement, "SettingsPath", component.SettingsPath);
-            SettingsHelper.CreateSetting(document, settingsElement, "GameTimePausing", component.GameTimePausing);
+            foreach (Setting setting in settingDefs)
+                setting.Save(document, settingsElement);
 
             return settingsElement;
         }
@@ -85,9 +89,8 @@ namespace LiveSplit.UI.Components
             if (((XmlElement)settings).IsEmpty)
                 return;
 
-            component.AutoSplitPath = textBoxAutoSplitPath.Text = SettingsHelper.ParseString(settings["AutoSplitPath"]);
-            component.SettingsPath = textBoxSettingsPath.Text = SettingsHelper.ParseString(settings["SettingsPath"]);
-            component.GameTimePausing = checkBoxGameTimePausing.Checked = SettingsHelper.ParseBool(settings["GameTimePausing"]);
+            foreach (Setting setting in settingDefs)
+                setting.Load(settings);
 
             if (component.AutoSplit != null)
             {
@@ -140,11 +143,48 @@ namespace LiveSplit.UI.Components
 
         private void ButtonKillAutoSplit_Click(object sender, EventArgs e) => component.KillAutoSplit();
 
-        private void CheckBoxGameTimePausing_CheckedChanged(object sender, EventArgs e) => component.GameTimePausing = checkBoxGameTimePausing.Checked;
+        // Registry of persisted settings. Each entry two-way binds a control to a
+        // component property and knows how to save/load itself. Adding a setting =
+        // one row here (plus the component property and the Designer control) — no
+        // change-handler, no GetSettings/SetSettings edits.
+        private Setting[] BuildSettingDefs() =>
+        [
+            TextSetting("AutoSplitPath", textBoxAutoSplitPath, nameof(component.AutoSplitPath), v => component.AutoSplitPath = v),
+            TextSetting("SettingsPath", textBoxSettingsPath, nameof(component.SettingsPath), v => component.SettingsPath = v),
+            BoolSetting("GameTimePausing", checkBoxGameTimePausing, nameof(component.GameTimePausing), v => component.GameTimePausing = v),
+        ];
 
-        private void TextBoxAutoSplitPath_TextChanged(object sender, EventArgs e) => component.AutoSplitPath = textBoxAutoSplitPath.Text;
+        private Setting TextSetting(string key, TextBox box, string boundProperty, Action<string> set) => new(
+            bind: () => box.DataBindings.Add(nameof(TextBox.Text), component, boundProperty, false, DataSourceUpdateMode.OnPropertyChanged),
+            save: (document, parent) => SettingsHelper.CreateSetting(document, parent, key, box.Text),
+            load: settings =>
+            {
+                string value = SettingsHelper.ParseString(settings[key]);
+                box.Text = value;   // reflect in the UI
+                set(value);         // and in the component: bindings aren't live until the panel is shown
+            });
 
-        private void TextBoxSettingsPath_TextChanged(object sender, EventArgs e) => component.SettingsPath = textBoxSettingsPath.Text;
+        private Setting BoolSetting(string key, CheckBox box, string boundProperty, Action<bool> set) => new(
+            bind: () => box.DataBindings.Add(nameof(CheckBox.Checked), component, boundProperty, false, DataSourceUpdateMode.OnPropertyChanged),
+            save: (document, parent) => SettingsHelper.CreateSetting(document, parent, key, box.Checked),
+            load: settings =>
+            {
+                bool value = SettingsHelper.ParseBool(settings[key]);
+                box.Checked = value;
+                set(value);
+            });
+
+        /// <summary>
+        /// One persisted setting: a two-way binding between a control and a component
+        /// property, plus how it saves to and loads from the layout XML. The stable XML
+        /// key is passed explicitly so it stays decoupled from the code identifier.
+        /// </summary>
+        private sealed class Setting(Action bind, Action<XmlDocument, XmlElement> save, Action<XmlNode> load)
+        {
+            public readonly Action Bind = bind;
+            public readonly Action<XmlDocument, XmlElement> Save = save;
+            public readonly Action<XmlNode> Load = load;
+        }
 
     }
 }

@@ -77,7 +77,6 @@ namespace LiveSplit.UI.Components
             this.textBoxAutoSplitPath.Name = "textBoxAutoSplitPath";
             this.textBoxAutoSplitPath.Size = new System.Drawing.Size(294, 20);
             this.textBoxAutoSplitPath.TabIndex = 1;
-            this.textBoxAutoSplitPath.TextChanged += new System.EventHandler(this.TextBoxAutoSplitPath_TextChanged);
             // 
             // tableLayoutPanel1
             // 
@@ -125,7 +124,6 @@ namespace LiveSplit.UI.Components
             this.textBoxSettingsPath.Name = "textBoxSettingsPath";
             this.textBoxSettingsPath.Size = new System.Drawing.Size(294, 20);
             this.textBoxSettingsPath.TabIndex = 4;
-            this.textBoxSettingsPath.TextChanged += new System.EventHandler(this.TextBoxSettingsPath_TextChanged);
             // 
             // labelSettingsPath
             // 
@@ -216,7 +214,6 @@ namespace LiveSplit.UI.Components
             this.checkBoxGameTimePausing.TabIndex = 12;
             this.checkBoxGameTimePausing.Text = "Pause Game Time only (this will disallow manual unpausing)";
             this.checkBoxGameTimePausing.UseVisualStyleBackColor = true;
-            this.checkBoxGameTimePausing.CheckedChanged += new System.EventHandler(this.CheckBoxGameTimePausing_CheckedChanged);
             // 
             // AutoSplitIntegrationComponentSettings
             // 
