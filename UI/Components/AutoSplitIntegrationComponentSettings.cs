@@ -61,6 +61,7 @@ namespace LiveSplit.UI.Components
 
             InitializeComponent();
 
+            labelComponentVersion.Text = "AutoSplit Integration version: " + GetType().Assembly.GetName().Version;
             checkBoxGameTimePausing.Enabled = state.CurrentPhase == TimerPhase.NotRunning;
         }
 
@@ -72,7 +73,6 @@ namespace LiveSplit.UI.Components
         {
             XmlElement settingsElement = document.CreateElement("Settings");
 
-            SettingsHelper.CreateSetting(document, settingsElement, "Version", "1.8");
             SettingsHelper.CreateSetting(document, settingsElement, "AutoSplitPath", component.AutoSplitPath);
             SettingsHelper.CreateSetting(document, settingsElement, "SettingsPath", component.SettingsPath);
             SettingsHelper.CreateSetting(document, settingsElement, "GameTimePausing", component.GameTimePausing);

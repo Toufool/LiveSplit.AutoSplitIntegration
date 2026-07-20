@@ -27,6 +27,7 @@
   <update version="0.0.0">
     <files />
     <changelog>
+      <change>Show the AutoSplit Integration component version in the settings panel.</change>
     </changelog>
   </update>
   <update version="1.8.3">
